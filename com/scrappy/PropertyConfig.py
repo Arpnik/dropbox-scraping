@@ -1,17 +1,22 @@
-from configparser import ConfigParser
+import json
+
+CONFIG = {}
 
 
 def initialize():
-    config = ConfigParser()
-    config.read("config.properties")
-    return config
+    with open(r'C:\Users\USER\Documents\dropbox-scraping\config.json') as config_file:
+        data = json.load(config_file)
+        for key in data.keys():
+            CONFIG[key] = data[key]
+    # print(CONFIG)
 
 
 def getFolderPath():
-    config = initialize()
-    return config.get("FolderLocation", "folder.location")
+    return CONFIG["folder_path"]
 
 
 def getDriverPath():
-    config = initialize()
-    return config.get("seleniumConfig", "selenium.driver.location")
+    return CONFIG["driver_path"]
+
+
+initialize()
