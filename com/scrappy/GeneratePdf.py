@@ -2,10 +2,10 @@ import img2pdf
 import os, cv2
 import PIL
 
-from com.scrappy.property_config import get_folder_path
+from com.scrappy.PropertyConfig import getFolderPath
 
 
-def get_images(folder_loc):
+def getImages(folder_loc):
     images = []
     for file in os.listdir(folder_loc):
         img = cv2.imread(os.path.join(folder_loc, file))
@@ -14,8 +14,8 @@ def get_images(folder_loc):
     return images
 
 
-def generate_pdf_from_pictures():
-    folder_loc = get_folder_path();
+def generatePdfFromPictures():
+    folder_loc = getFolderPath();
     images = [PIL.Image.open(os.path.join(folder_loc, i)) for i in os.listdir(folder_loc) if i.endswith(".jpg")]
     with open(os.path.join(folder_loc, "output.pdf"), "wb") as f:
         f.write(img2pdf.convert([i.filename for i in images]));

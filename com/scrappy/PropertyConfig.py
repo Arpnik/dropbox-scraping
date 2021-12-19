@@ -7,11 +7,11 @@ def initialize():
     return config
 
 
-def get_folder_path():
+def getFolderPath():
     config = initialize()
     return config.get("FolderLocation", "folder.location")
 
 
-def get_web_driver_path():
+def getDriverPath():
     config = initialize()
     return config.get("seleniumConfig", "selenium.driver.location")

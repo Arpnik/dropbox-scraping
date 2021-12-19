@@ -1,6 +1,6 @@
 import time
 from selenium import webdriver
-from com.scrappy.property_config import get_web_driver_path
+from com.scrappy.PropertyConfig import getDriverPath
 
 
 def login(driver, password):
@@ -29,7 +29,7 @@ def scroll_and_capture_images(driver):
 def login_and_download(url, password):
     url = "https://www.dropbox.com/s/ip7i88vhiiy5wjo/Perio%202.pdf?dl=0"
     password = "furcation"
-    driver = webdriver.Chrome(executable_path=get_web_driver_path())
+    driver = webdriver.Chrome(executable_path=getDriverPath())
     driver.maximize_window();
     driver.get(url)
     # accept_cookies(driver)
