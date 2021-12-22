@@ -8,7 +8,7 @@ def main():
     password = input("Enter the password to Access the DropBox: ")
     # download_folder = input("Enter the folder address to store files: ")
     dbs.loginAndDownload(url, password)
-    #generatePdfFromPictures()
+    generatePdfFromPictures()
 
 
 main()

@@ -33,7 +33,6 @@ def capture(driver, name):
 
 def scroll_and_capture_images(driver):
     ##TODO add wait for loading elements
-    # WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.XPATH, "//div[starts-with(@class, 'pdfViewport_')]//ol//li[@data-index=0]")))
     current = 0
     prev = -1
     maxLi = int(driver.find_elements_by_xpath("//div[starts-with(@class, 'pdfViewport_')]//ol//li")[-1].get_attribute(
