@@ -13,9 +13,10 @@ def getImages(folder_loc):
             images.append(img)
     return images
 
-
+#TODO sort the files on date and than form pdf
 def generatePdfFromPictures():
-    folder_loc = getFolderPath();
-    images = [PIL.Image.open(os.path.join(folder_loc, i)) for i in os.listdir(folder_loc) if i.endswith(".jpg")]
+    folder_loc = getFolderPath()
+    files = os.listdir(folder_loc)
+    images = [PIL.Image.open(os.path.join(folder_loc, i)) for i in files if i.endswith(".jpg")]
     with open(os.path.join(folder_loc, "output.pdf"), "wb") as f:
         f.write(img2pdf.convert([i.filename for i in images]));

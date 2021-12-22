@@ -1,8 +1,6 @@
 import time
 from selenium import webdriver
 
-# from com.scrappy.PropertyConfig import getDriverPath
-
 
 def initialise(url):
     # driverPath = getDriverPath()
@@ -28,25 +26,34 @@ def acceptCookies(driver):
     driver.switch_to.default_content()
 
 
+def capture(driver, name):
+    driver.maximize_window()
+    driver.save_screenshot("C:\\Users\\USER\\Pictures\\Screenshots\\" + name + ".jpg")
+
+
 def scroll_and_capture_images(driver):
-    ##TODO scroll and capture screen shot for all pages
-    return
+    ##TODO add wait for loading elements
+    # WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.XPATH, "//div[starts-with(@class, 'pdfViewport_')]//ol//li[@data-index=0]")))
+    current = 0
+    prev = -1
+    maxLi = int(driver.find_elements_by_xpath("//div[starts-with(@class, 'pdfViewport_')]//ol//li")[-1].get_attribute(
+        "data-index"))
+    while (current <= maxLi) or (prev > current):
+        liElement = driver.find_element_by_xpath(
+            "//div[starts-with(@class, 'pdfViewport_')]//ol//li[@data-index=" + str(current) + "]")
+        driver.execute_script("arguments[0].scrollIntoView(true);", liElement)
+        print(liElement.get_attribute("data-index"))
+        capture(driver, liElement.get_attribute("data-index"))
+        prev = current
+        current += 1
+        maxLi = int(driver.find_elements_by_xpath("//div[starts-with(@class, 'pdfViewport_')]//ol//li")[-1]
+                    .get_attribute("data-index"))
 
 
 def loginAndDownload(url, password):
-    url = "https://www.dropbox.com/s/ip7i88vhiiy5wjo/Perio%202.pdf?dl=0"
-    password = "furcation"
     driver = initialise(url)
     acceptCookies(driver)
     login(driver, password)
-    div = driver.find_element_by_xpath('//*[@id="fvsdk-mount-point"]/div/div/div[1]/div/article/div[2]')
-    driver.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight', div)
-    # print("Scrolling 2")
-    # div = driver.find_element_by_tag_name("ol").find_element_by_xpath("..")
-    # driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", div)
-    # print("Scrolling 3")
-    # div = driver.find_element_by_tag_name("ol").find_element_by_xpath("..").find_element_by_xpath("..")
-    # driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", div)
-    # print("done")
-    time.sleep(105)
-    driver.close()
+    time.sleep(30)
+    scroll_and_capture_images(driver)
+    driver.quit()
