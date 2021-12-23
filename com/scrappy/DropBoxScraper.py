@@ -1,6 +1,8 @@
 import time
 from selenium import webdriver
 
+from com.scrappy import EXTENSION
+
 
 def initialise(url):
     # driverPath = getDriverPath()
@@ -28,7 +30,7 @@ def acceptCookies(driver):
 
 def capture(driver, name):
     driver.maximize_window()
-    driver.save_screenshot("C:\\Users\\USER\\Pictures\\Screenshots\\" + name + ".jpg")
+    driver.save_screenshot("C:\\Users\\USER\\Pictures\\Screenshots\\" + name + EXTENSION)
 
 
 def scroll_and_capture_images(driver):
@@ -41,7 +43,7 @@ def scroll_and_capture_images(driver):
         liElement = driver.find_element_by_xpath(
             "//div[starts-with(@class, 'pdfViewport_')]//ol//li[@data-index=" + str(current) + "]")
         driver.execute_script("arguments[0].scrollIntoView(true);", liElement)
-        print(liElement.get_attribute("data-index"))
+        # print(liElement.get_attribute("data-index"))
         capture(driver, liElement.get_attribute("data-index"))
         prev = current
         current += 1
